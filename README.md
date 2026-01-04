@@ -1,11 +1,4 @@
-/**
- * @BUILD_TIME 2025-12-26 10:47:38
- * @DESCRIPTION Go Fuck youself! Verdammt! Scheisse!
- * @AUTHOR sxy
- * @EMAIL 2711541705@qq.com
- */
-
-```
+```bash
 Cesiumjs
 ├─ part.1 Theory
 │  ├─ chr.1 Introduction
