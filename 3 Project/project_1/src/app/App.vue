@@ -6,7 +6,7 @@
     - 命中白名单的页面（如 MainPage）被缓存；未命中的照常销毁重建
   -->
   <RouterView v-slot="{ Component }">
-    <KeepAlive :include="keepAliveNames">
+    <KeepAlive :include="keepAliveComponentList">
       <component :is="Component" />
     </KeepAlive>
   </RouterView>
@@ -35,7 +35,7 @@ import { RouterView } from "vue-router";
  * KeepAlive 缓存白名单：填写需要缓存的页面组件名，
  * 需与各页面 defineOptions({ name: 'Xxx' }) 保持一致
  */
-const keepAliveNames = ["MainPage"];
+const keepAliveComponentList = ["MainPage"];
 
 /** ==================== 响应式变量 / 常量 =========== **/
 
