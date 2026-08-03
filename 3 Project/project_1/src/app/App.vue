@@ -1,41 +1,45 @@
 <template>
-  <CesiumViewer />
+  <!--
+    KeepAlive 范式：
+    - RouterView 通过 v-slot 拿到当前页组件，交给 <component :is> 渲染
+    - KeepAlive 按 include 白名单缓存页面：切走不销毁，切回秒复用
+    - 命中白名单的页面（如 MainPage）被缓存；未命中的照常销毁重建
+  -->
+  <RouterView v-slot="{ Component }">
+    <KeepAlive :include="keepAliveNames">
+      <component :is="Component" />
+    </KeepAlive>
+  </RouterView>
 </template>
 
 <script setup lang="ts">
 /**
  * @BUILD_TIME 2026-08-03 14:55:02
- * @DESCRIPTION Description of the file/module
- * @CREATOR Your Name
+ * @DESCRIPTION 应用根组件：渲染当前路由对应的页面（KeepAlive 缓存范式）
+ * @CREATOR xiangyun_sha
  * @MODIFIED_RECORD
- *  - TIME: 2026-08-03; AUTHOR: xiangyun_sha; DESC: Initial creation;
+ *  - TIME: 2026-08-03; AUTHOR: xiangyun_sha; DESC: 改用 RouterView 挂载路由页面;
+ *  - TIME: 2026-08-03; AUTHOR: xiangyun_sha; DESC: 引入 KeepAlive 缓存页面，避免重型组件（Cesium）切换路由时销毁重建;
  *  - TIME: ; AUTHOR: ; DESC:  (add more if needed);
  */
 
 /** ==================== 外部引入 ==================== **/
+import { RouterView } from "vue-router";
 
 /** ==================== 内部引入 ==================== **/
-import CesiumViewer from "@/widgets/cesium-viewer/ui/cesiumViewer.vue";
 
 /** ==================== 类型定义 ==================== **/
 
-/** ==================== Props / Emits ============== **/
+/** ==================== 常量定义 ==================== **/
+/**
+ * KeepAlive 缓存白名单：填写需要缓存的页面组件名，
+ * 需与各页面 defineOptions({ name: 'Xxx' }) 保持一致
+ */
+const keepAliveNames = ["MainPage"];
 
 /** ==================== 响应式变量 / 常量 =========== **/
 
-/** ==================== Inject（依赖注入） ========== **/
-
-/** ==================== 组合式函数 ================== **/
-
-/** ==================== 计算属性 ==================== **/
-
-/** ==================== 监听器 ====================== **/
-
 /** ==================== 生命周期 ==================== **/
-
-/** ==================== Provide（依赖提供） ========== **/
-
-/** ==================== defineExpose ================ **/
 </script>
 
 <style scoped></style>

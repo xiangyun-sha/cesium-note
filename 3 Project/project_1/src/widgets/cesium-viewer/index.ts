@@ -6,3 +6,4 @@
 
 /** ==================== 导出层 ==================== **/
 export { default as ViewerSingleton } from "./lib/ViewerSingleton";
+export { default as CesiumWidget } from "./ui/CesiumWidget.vue";

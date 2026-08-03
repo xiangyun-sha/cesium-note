@@ -16,7 +16,7 @@
 
 /** ==================== 外部引入 ==================== **/
 import * as Cesium from "cesium";
-import { onMounted, onUnmounted } from "vue";
+import { onActivated, onDeactivated, onMounted, onUnmounted } from "vue";
 
 /** ==================== 内部引入 ==================== **/
 import { ViewerSingleton } from "@/widgets/cesium-viewer";
@@ -35,6 +35,8 @@ const singleton = ViewerSingleton.getInstance(containerId, {
 
 /** ==================== 生命周期 ==================== **/
 onMounted(() => {
+  // KeepAlive 验证：缓存生效时此日志只打印一次（Viewer 只创建一次）
+  console.log("[KeepAlive] CesiumViewer mounted");
   // 首次访问 viewer 时才真正创建 Cesium.Viewer（容器此时已挂载）
   const viewer = singleton.viewer;
 
@@ -44,13 +46,33 @@ onMounted(() => {
     duration: 2,
   });
 
-  // 清理 copy right
+  // 清理版权信息
   viewer.creditDisplay.container.style.display = "none";
 });
 
 onUnmounted(() => {
-  // 组件卸载时销毁 viewer 并重置单例
+  // KeepAlive 验证：缓存生效时切换路由不会触发此日志
+  console.log("[KeepAlive] CesiumViewer unmounted");
+  // 组件真正卸载时销毁 viewer 并重置单例
+  // （KeepAlive 缓存期间切路由不会触发，只有页面被移除时才执行）
   singleton.destroy();
+});
+
+// 配合 KeepAlive：页面被缓存（切走）时暂停持续渲染，降低资源占用
+onDeactivated(() => {
+  console.log("[KeepAlive] CesiumViewer deactivated (暂停渲染)");
+  const viewer = singleton.getViewer();
+  if (!viewer) return;
+  viewer.scene.requestRenderMode = true;
+});
+
+// 配合 KeepAlive：页面恢复（切回）时恢复渲染
+onActivated(() => {
+  console.log("[KeepAlive] CesiumViewer activated (恢复渲染)");
+  const viewer = singleton.getViewer();
+  if (!viewer) return;
+  viewer.scene.requestRenderMode = false;
+  viewer.scene.requestRender();
 });
 </script>
 

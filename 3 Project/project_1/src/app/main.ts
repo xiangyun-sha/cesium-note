@@ -1,6 +1,7 @@
 import { createApp } from "vue";
 
 import App from "./App.vue";
+import { router } from "./routers";
 import { ViewerSingleton } from "@/widgets/cesium-viewer";
 
 import "@/shared/styles/root.css";
@@ -12,4 +13,4 @@ if (ionToken) {
   ViewerSingleton.setAccessToken(ionToken);
 }
 
-createApp(App).mount("#app");
+createApp(App).use(router).mount("#app");

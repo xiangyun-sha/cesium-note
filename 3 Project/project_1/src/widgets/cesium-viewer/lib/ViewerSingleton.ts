@@ -97,6 +97,15 @@ export default class ViewerSingleton {
     return this._viewer;
   }
 
+  /**
+   * 安全获取 Cesium.Viewer 实例
+   * 若尚未初始化则返回 null，不会自动创建、不会抛错，
+   * 适合在组件初始化顺序不确定的场景下优雅降级
+   */
+  public getViewer(): Cesium.Viewer | null {
+    return this._viewer;
+  }
+
   /** 解析真实的容器 DOM 元素（字符串 id -> Element） */
   private resolveContainer(): HTMLElement {
     if (typeof this._container === "string") {
