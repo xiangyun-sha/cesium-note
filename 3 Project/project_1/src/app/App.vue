@@ -1,7 +1,41 @@
 <template>
-  <HelloWorld />
+  <CesiumViewer />
 </template>
 
 <script setup lang="ts">
-import HelloWorld from "@/shared/ui/HelloWorld.vue";
+/**
+ * @BUILD_TIME 2026-08-03 14:55:02
+ * @DESCRIPTION Description of the file/module
+ * @CREATOR Your Name
+ * @MODIFIED_RECORD
+ *  - TIME: 2026-08-03; AUTHOR: xiangyun_sha; DESC: Initial creation;
+ *  - TIME: ; AUTHOR: ; DESC:  (add more if needed);
+ */
+
+/** ==================== 外部引入 ==================== **/
+
+/** ==================== 内部引入 ==================== **/
+import CesiumViewer from "@/widgets/cesium-viewer/ui/cesiumViewer.vue";
+
+/** ==================== 类型定义 ==================== **/
+
+/** ==================== Props / Emits ============== **/
+
+/** ==================== 响应式变量 / 常量 =========== **/
+
+/** ==================== Inject（依赖注入） ========== **/
+
+/** ==================== 组合式函数 ================== **/
+
+/** ==================== 计算属性 ==================== **/
+
+/** ==================== 监听器 ====================== **/
+
+/** ==================== 生命周期 ==================== **/
+
+/** ==================== Provide（依赖提供） ========== **/
+
+/** ==================== defineExpose ================ **/
 </script>
+
+<style scoped></style>
