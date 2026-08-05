@@ -9,20 +9,11 @@
         <span class="logo">🌍</span>
       </template>
       <template #right>
-        <button class="tool-btn" @click="onZoomIn">放大</button>
-        <button class="tool-btn" @click="onResetCamera">复位</button>
-        <button class="tool-btn" @click="onGoAbout">关于</button>
+        <el-button class="tool-btn" @click="onZoomIn">放大</el-button>
+        <el-button class="tool-btn" @click="onResetCamera">复位</el-button>
+        <el-button class="tool-btn" @click="onGoAbout">关于</el-button>
       </template>
     </HeaderWidget>
-
-    <!-- 底部状态栏 -->
-    <FooterWidget />
-
-    <!-- 左侧面板 -->
-    <SliderLeftWidget />
-
-    <!-- 右侧面板 -->
-    <SliderRightWidget />
   </div>
 </template>
 
@@ -38,14 +29,11 @@
 
 /** ==================== 外部引入 ==================== **/
 import { onMounted } from "vue";
-import { useRouter } from "vue-router";
 
 /** ==================== 内部引入 ==================== **/
-import { CesiumWidget, ViewerSingleton } from "@/widgets/cesium-viewer";
-import { FooterWidget } from "@/widgets/footer";
+import { CesiumWidget } from "@/widgets/cesium-viewer";
 import { HeaderWidget } from "@/widgets/header";
-import { SliderLeftWidget } from "@/widgets/slider-left";
-import { SliderRightWidget } from "@/widgets/slider-right";
+import { useMainPageActions } from "../model/useMainPageActions";
 
 /** ==================== 组件标识 ==================== **/
 /** KeepAlive 的 include 通过组件 name 匹配，必须显式声明 */
@@ -60,25 +48,10 @@ defineOptions({ name: "MainPage" });
 /** ==================== Inject（依赖注入） ========== **/
 
 /** ==================== 组合式函数 ================== **/
+/** 按钮交互逻辑（相机放大 / 复位 / 路由跳转）统一抽离至 useMainPageActions */
+const { onZoomIn, onResetCamera, onGoAbout } = useMainPageActions();
 
 /** ==================== 事件处理 ==================== **/
-/** 示例：通过单例安全获取地球实例（未初始化时优雅降级） */
-const onZoomIn = () => {
-  const viewer = ViewerSingleton.getInstance().getViewer();
-  if (!viewer) return;
-  const height = viewer.camera.positionCartographic.height;
-  viewer.camera.zoomIn(height * 0.3);
-};
-
-const onResetCamera = () => {
-  const viewer = ViewerSingleton.getInstance().getViewer();
-  if (!viewer) return;
-  viewer.camera.flyHome(2);
-};
-
-/** 跳转到关于页（用于验证 KeepAlive） */
-const router = useRouter();
-const onGoAbout = () => router.push("/about");
 
 /** ==================== 计算属性 ==================== **/
 
@@ -95,46 +68,4 @@ onMounted(() => {
 /** ==================== defineExpose ================ **/
 </script>
 
-<style scoped>
-.main-page {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-/* 三维地球铺满全屏 */
-.main-page > :deep(*) {
-  position: absolute;
-  inset: 0;
-}
-
-/* 顶部工具栏固定在顶部，高度由内容决定（演示 props/插槽组合） */
-.main-page :deep(.app-header) {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: auto;
-  z-index: 10;
-}
-
-.logo {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.tool-btn {
-  padding: 4px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.tool-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-</style>
+<style scoped src="./MainPage.css"></style>
