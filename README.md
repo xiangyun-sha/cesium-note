@@ -66,10 +66,10 @@ cesium-note
 │  │  ├─ Chr.1 Geographics
 │  │  ├─ Chr.2 3D Model
 │  │  └─ Chr3 TimeSeries
-│  ├─ Part.4 Base Rendering
+│  ├─ Part.4 Interaction
+│  ├─ Part.5 Base Rendering
 │  │  ├─ Chr.1 Entity
 │  │  └─ Chr.2 Primitive
-│  ├─ Part.5 Interaction
 │  ├─ Part.6 Analysis
 │  ├─ Part.7 Advaced Rendering
 │  │  ├─ Chr.1 PointCloud
