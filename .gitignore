@@ -24,4 +24,13 @@ dist-ssr
 *.sw?
 
 .husky/*
-*.evn.*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.test
+
+# Local env files by prefix (e.g. .env.local, .env.production.local)
+*.env
+
