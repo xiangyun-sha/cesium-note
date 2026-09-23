@@ -2,7 +2,6 @@ import { createApp } from "vue";
 
 import App from "./App.vue";
 import { router } from "./routers";
-import { ViewerSingleton } from "@/widgets/cesium-viewer";
 
 import "@/shared/styles/root.css";
 import "cesium/Source/Widgets/widgets.css";
@@ -14,12 +13,7 @@ import "cesium/Source/Widgets/widgets.css";
 (window as unknown as { CESIUM_BASE_URL: string }).CESIUM_BASE_URL =
   "/cesiumStatic";
 
-// 可选：通过 .env 配置 Cesium Ion 令牌，如 VITE_CESIUM_ION_TOKEN=你的token
-const ionToken = import.meta.env.VITE_CESIUM_ION_TOKEN;
-console.log(ionToken);
-if (ionToken) {
-  ViewerSingleton.setAccessToken(ionToken);
-}
+// 本项目不使用 Cesium ion，底图由本地静态资源提供，因此无需配置任何 Token。
 
 const app = createApp(App);
 app.use(router);

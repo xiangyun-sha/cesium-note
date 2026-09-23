@@ -5,5 +5,6 @@
  */
 
 /** ==================== 导出层 ==================== **/
+export { createBaseImageryProvider } from "./lib/createBaseImageryProvider";
 export { default as ViewerSingleton } from "./lib/ViewerSingleton";
 export { default as CesiumWidget } from "./ui/CesiumWidget.vue";

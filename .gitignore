@@ -23,14 +23,47 @@ dist-ssr
 *.sln
 *.sw?
 
-.husky/*
+# Husky —— 只忽略自动生成的内部目录，pre-commit / commit-msg 钩子必须提交
+.husky/_/
 
-# Environment variables
+# 环境变量
 .env
 .env.*
 !.env.example
 !.env.test
-
-# Local env files by prefix (e.g. .env.local, .env.production.local)
 *.env
+
+# TypeScript 增量编译缓存（vue-tsc -b 会生成 *.tsbuildinfo）
+*.tsbuildinfo
+
+# 测试与覆盖率产物
+coverage
+.nyc_output
+test-results
+__screenshots__
+
+# Cypress（devDependency 已装，运行时生成）
+cypress/videos
+cypress/screenshots
+cypress/downloads
+cypress/.run
+
+# 工具缓存
+.vite
+.cache
+.turbo
+.eslintcache
+.prettiercache
+.stylelintcache
+
+# 包管理器
+.pnpm-store
+
+# 操作系统杂项文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*~
+.directory
 

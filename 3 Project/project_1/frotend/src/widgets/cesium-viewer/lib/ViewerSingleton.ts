@@ -11,6 +11,7 @@
 import * as Cesium from "cesium";
 
 /** ==================== 内部引入 ==================== **/
+import { createBaseImageryProvider } from "./createBaseImageryProvider";
 
 /** ==================== 类型定义 ==================== **/
 
@@ -40,7 +41,8 @@ const DEFAULT_VIEWER_OPTIONS: Cesium.Viewer.ConstructorOptions = {
  * 全局唯一 Cesium.Viewer 实例，支持：
  *  - 懒加载：首次访问 `viewer` 时才真正创建；
  *  - 全局共享：任意模块调用 `getInstance()` 拿到同一实例；
- *  - 生命周期管理：`destroy()` 释放资源后可重新创建。
+ *  - 生命周期管理：`destroy()` 释放资源后可重新创建；
+ *  - 零 Token：默认底图为本地离线影像源（见 createBaseImageryProvider）。
  */
 export default class ViewerSingleton {
   /** 唯一实例引用 */
@@ -62,13 +64,6 @@ export default class ViewerSingleton {
   ) {
     this._container = container;
     this._options = options;
-  }
-
-  /**
-   * 设置 Cesium Ion 访问令牌（建议在应用入口调用一次）
-   */
-  public static setAccessToken(token: string): void {
-    Cesium.Ion.defaultAccessToken = token;
   }
 
   /**
@@ -122,7 +117,16 @@ export default class ViewerSingleton {
 
   /** 创建并返回一个新的 Cesium.Viewer */
   private _createViewer(): Cesium.Viewer {
-    return new Cesium.Viewer(this.resolveContainer(), this._options);
+    const options: Cesium.Viewer.ConstructorOptions = { ...this._options };
+
+    // 未显式指定底图时注入本地离线影像层：全程不访问 Cesium ion，因此无需任何 Token。
+    // 必须在「创建实例时」而非模块加载时构造 —— 此时 CESIUM_BASE_URL 已就绪，
+    // Cesium.buildModuleUrl() 才能解析出正确的内置资源路径。
+    if (!options.baseLayer) {
+      options.baseLayer = new Cesium.ImageryLayer(createBaseImageryProvider());
+    }
+
+    return new Cesium.Viewer(this.resolveContainer(), options);
   }
 
   /**
