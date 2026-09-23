@@ -70,3 +70,54 @@ cesium-note
 │     └─ vitest.config.ts
 └─ README.md
 ```
+
+```bash
+1 Theory/
+├─ Part.0 Prologue（预备篇）
+│  ├─ Chr.0 Mathematical Foundation
+│  │  ├─ 0.1 Coordinate Frame
+│  │  ├─ 0.2 Projection
+│  │  └─ 0.3 Time Frame
+│  ├─ Chr.1 Quick Start
+│  │  ├─ 1.1 Environment Setup
+│  │  ├─ 1.2 First Viewer
+│  │  ├─ 1.3 First GeoJSON
+│  │  └─ 1.4 Troubleshooting
+│  └─ Chr.2 Core API
+│     ├─ 2.1 Viewer
+│     ├─ 2.2 Scene
+│     ├─ 2.3 Globe
+│     └─ 2.4 Camera
+│
+├─ Part.1 Data & Rendering（数据与渲染）
+│  ├─ Chr.1 Base Rendering
+│  │  ├─ 1.1 Entity
+│  │  ├─ 1.2 Primitive
+│  │  └─ 1.3 Entity vs Primitive
+│  ├─ Chr.2 Data
+│  │  ├─ 2.1 Geographics
+│  │  ├─ 2.2 3D Model
+│  │  └─ 2.3 TimeSeries
+│  └─ Chr.3 Advanced Rendering
+│     ├─ 3.1 PointCloud
+│     ├─ 3.2 Volumetric
+│     └─ 3.3 GaussianSplatting
+│
+├─ Part.2 Interaction（交互）
+│  ├─ Chr.1 Event System
+│  ├─ Chr.2 Event Pipeline
+│  ├─ Chr.3 Mode & Strategy
+│  └─ Chr.4 Toolbox
+│
+├─ Part.3 Analysis（分析）
+│  ├─ Chr.1 Basic Analysis
+│  ├─ Chr.2 Geometry Computation
+│  ├─ Chr.3 Graph Analysis
+│  └─ Chr.4 Volumetric Analysis
+│
+└─ Part.4 Performance & Optimization（性能与优化）
+   ├─ Chr.1 Frame & Render Loop
+   ├─ Chr.2 Memory Management
+   ├─ Chr.3 Data Scheduling
+   └─ Chr.4 Pipeline Optimization
+```
